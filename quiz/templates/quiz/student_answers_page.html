@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+          crossorigin="anonymous">
+    <link
+        href="{{url_for('.static', filename='css/student_answers_page.css')}}"
+        rel="stylesheet"
+    >
+    <title>ExamWeb</title>
+</head>
+<body>
+  <div class="container my-5">
+    <div class="bg-body-tertiary p-5 rounded">
+      <div class="col-sm-8 py-5 mx-auto">
+          <h1 class="display-5 fw-bolder" style="text-align: center; color: #2980b9">{{student_answer_data.student.first_name}} {{student_answer_data.student.second_name}}</h1>
+          <h2 class="display-4, fw-normal" style="text-align: center"> Quiz from <span>{{quiz_data.title}}</span></h2>
+          {% for key in questions %}
+            {% if questions[key]['correct_answer'] == student_answers[key][0]['answer'] %}
+              <h3 class="fs-4">
+                  <img src="{{url_for('.static', filename='assets/images/correct.png')}}" width="42" height="42" >
+                  {{key}})     {{ questions[key]['question'] }}
+              </h3>
+            {% else %}
+              <h3 class="fs-4">
+                  <img src="{{url_for('.static', filename='assets/images/wrong.png')}}" width="42" height="42">
+                  {{key}})     {{ questions[key]['question'] }}
+              </h3>
+            {% endif %}
+            <div class="row">
+                <div class="col">
+                    <p class="fs-5" style="color: #54B435"><strong>Correct answer: </strong> {{ questions[key]['correct_answer'] }} </p>
+                </div>
+                <div class="col">
+                    <p class="fs-5" style="color: #F94C10"><strong>Student answer: </strong> {{ student_answers[key][0]['answer'] }} </p>
+                </div>
+                {% if questions[key]['correct_answer'] == student_answers[key][0]['answer'] %}
+                    <div class="col">
+                        <p class="fs-5" style="color: #39A7FF"><strong>Points: </strong> {{ questions[key]['point'] }} </p>
+                    </div>
+                {% else %}
+                    <div class="col">
+                        <p class="fs-5" style="color: #39A7FF"><strong>Points: </strong> 0 </p>
+                    </div>
+                {% endif %}
+            </div>
+          {% endfor %}
+          <h3 class="fs-4">
+             Overall: {{student_answer_data.student_score}}/{{student_answer_data.total_score}}
+          </h3>
+          {% if from_page == 'quiz_results' %}
+            <a class="btn btn-primary" href="{{ url_for('quiz_functionality.quiz_results') }}" role="button">Back</a>
+          {% elif from_page == 'quiz_history' %}
+            <a class="btn btn-primary" href="{{ url_for('quiz_functionality.solved_quizzes_history') }}" role="button">Back</a>
+          {% endif %}
+      </div>
+    </div>
+  </div>
+</body>
+</html>

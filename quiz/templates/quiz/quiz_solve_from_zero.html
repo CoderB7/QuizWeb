@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ExamWeb</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+          crossorigin="anonymous">
+    <link
+         href="{{url_for('.static', filename='css/quiz_solve.css')}}"
+         rel="stylesheet"
+    >
+</head>
+<body>
+
+    {% for key in quiz_data%}
+    <div class="container-sm">
+        <div class="row small_width">
+          <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm border-primary">
+              <div class="card-header py-3 text-bg-primary border-primary">
+                <h2 class="my-0 fw-normal">{{key}} {{quiz_data[key]['question']}}</h2>
+              </div>
+              <div class="card-body radio-container">
+                  {% for i in range(0, n_o_answers) %}
+                      <div class="radio-box" onclick="markAsClicked(this,'{{key}}','{{ i+1 }}')">
+                          <div class="number-box">
+                             {{i+1}})
+                          </div>
+                          <input type="radio" id="answer-{{key}}-{{i+1}}" name="answer-{{key}}" data-question="{{key}}" data-answer="{{ quiz_data[key][ans_if_structure + i | string() ] }}" required>
+                          <label for="answer-{{key}}-{{i+1}}">
+                              {{quiz_data[key][ans_if_structure + i | string() ]}}
+                          </label>
+                      </div>
+                  {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="container">
+        <button id="submit_button" class="btn btn-primary submit_button">Submit</button>
+    </div>
+    <script>
+        function markAsClicked(element, questionKey, answerIndex) {
+        // Remove the 'hover' class to stop hovering effect
+        element.classList.remove('hover');
+
+        // Check if the radio-box is not already clicked
+        if (!element.classList.contains('clicked')) {
+            // Add the 'clicked' class to mark the radio-box as clicked
+            element.classList.add('clicked');
+
+            // Find the radio input based on the question key and answer index
+            var radioInputId = 'answer-' + questionKey + '-' + answerIndex;
+            var radioInput = document.getElementById(radioInputId);
+
+            // Check the radio input
+            if (radioInput) {
+                radioInput.checked = true;
+            }
+
+            // Disable other radio-boxes in the same container
+            var container = element.closest('.radio-container');
+            var questionGroup = container.querySelectorAll('.radio-box');
+
+            questionGroup.forEach(function(box) {
+                // Disable other radio-boxes
+                if (box !== element) {
+                    box.classList.remove('hover');
+                    box.classList.add('disabled');
+                    // Remove 'clicked' class if previously set
+                    box.classList.remove('clicked');
+                }
+            });
+        }
+    }
+        // Function to handle the AJAX request
+    function sendDataToServer() {
+        // Collect data from selected radio inputs
+        var selectedAnswers = {};
+
+        {% for key in quiz_data %}
+            selectedAnswers['{{key}}'] = [];
+            var checkedInput = document.querySelector('input[name="answer-{{key}}"]:checked');
+
+            if (checkedInput) {
+                selectedAnswers['{{key}}'].push({
+                    answer: checkedInput.dataset.answer,
+                    question: checkedInput.dataset.question
+                });
+            } else {
+                selectedAnswers['{{key}}'].push('not checked');
+            }
+        {% endfor %}
+
+        var endpoint = '/quiz/attempt_quiz/{{quiz_id}}';
+        // Create and send the AJAX request
+        fetch(endpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(selectedAnswers),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+            // Quiz submission was successful, redirect to quiz_over.html
+            window.location.href = '/quiz/quiz_over' + '?score=' + data.score + '&total_score=' + data.total_score + '&quiz_title=' + data.quiz_title;
+            } else {
+                // Handle any errors or display additional information
+                console.error('Quiz submission failed.');
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+
+    // Add a click event listener to the submit button
+    document.getElementById('submit_button').addEventListener('click', function() {
+        sendDataToServer();
+    });
+       // This JavaScript code runs when the page is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if the page has a message indicating a successful submission
+        var successMessage = document.querySelector('.success-message');
+        if (successMessage) {
+            // Redirect to the quiz_over.html page after a delay
+            setTimeout(function() {
+                window.location.href = 'quiz_over.html';  // Change this to the actual URL
+            }, 3000);  // Redirect after 3 seconds (adjust as needed)
+        }
+    });
+    </script>
+</body>
+</html>

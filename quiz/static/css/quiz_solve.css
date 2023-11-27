@@ -1,0 +1,103 @@
+@media (min-width: 1200px)
+.container-sm {
+    max-width: 200px;
+}
+
+.quiz_over_small_width{
+  align-items: center;
+  margin-top: 300px;
+  margin-left: 390px;
+  text-align: center;
+  width: 500px;
+}
+
+.small_width{
+  align-items: center;
+  margin-top: 50px;
+  margin-left: 390px;
+  text-align: center;
+  width: 500px;
+}
+
+/* Style for the container box */
+.radio-container {
+    text-align: left;
+    padding: 10px; /* Padding for inner content */
+    width: 100%; /* Set a fixed width, adjust as needed */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+}
+
+/* Style for individual radio buttons and labels */
+input[type="radio"] {
+    display: none;
+}
+
+label {
+    color: #3498db; /* Blue text color */
+    font-size: 24px; /* Readable font size */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Smooth transitions */
+}
+
+.radio-box.clicked {
+    background-color: #3498db; /* Blue background for clicked state */
+    color: #fff; /* White text color for clicked state */
+    border-color: #2980b9; /* Darker blue border for clicked state */
+}
+
+.radio-box.clicked label{
+    color: #fff; /* White text color for clicked state */
+}
+
+.radio-box.clicked .number-box{
+    color: black;
+}
+
+.radio-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    border: 2px solid #3498db; /* Blue color for the box border */
+    border-radius: 5px; /* Rounded corners for the box */
+    background-color: #fff; /* White background */
+    padding: 8px;
+}
+
+.radio-box:hover {
+    background-color: #3498db; /* Blue background on hover */
+    color: #fff; /* White text color on hover */
+    border-color: #2980b9; /* Darker blue border on hover */
+}
+
+.radio-box:hover label{
+    color: #fff; /* White text color on hover */
+}
+
+.radio-box:hover .number-box {
+    color: black;
+}
+
+.number-box {
+    border: 2px solid #3498db; /* Blue color for the box border */
+    border-radius: 5px; /* Rounded corners for the box */
+    background-color: #fff; /* White background */
+    padding: 8px 16px 8px 16px;
+    margin-right: 25px; /* Add margin between the number box and label */
+    transition: background-color 0.3s, border-color 0.3s; /* Smooth transitions */
+}
+
+/* Hover effect on labels */
+.radio-box:not(.clicked):hover {
+    background-color: #3498db; /* Blue background on hover */
+    color: #fff; /* White text color on hover */
+    border-color: #2980b9; /* Darker blue border on hover */
+}
+
+.radio-box:not(.clicked):hover label {
+    background-color: #3498db; /* Blue background on hover */
+    color: #fff; /* White text color on hover */
+}
+
+.submit_button{
+  margin-left: 600px
+}

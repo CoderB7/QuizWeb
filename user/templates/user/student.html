@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include "header.html" %}
+<head>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('.static', filename='css/student_table.css') }}"
+    >
+</head>
+<body>
+
+    <!-- Welcome Header-->
+    <div class="px-4 py-5 my-5 text-center">
+      <img class="d-block mx-auto mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+      <h1 class="display-5 fw-bold text-body-emphasis"> Welcome {{current_user.first_name}} </h1>
+    </div>
+
+    <main class="container">
+        <div class="row g-5">
+            <div class="col-md-8">
+                <div class="container">
+                    <h2 class="display-6 text-center mb-4">Top Quizzes</h2>
+                    <div class="wrapper_tb body_tb">
+                          <div class="table_student blurred-table hoverTable rounded-corners">
+                            <div class="row_student header">
+                              <div class="cell">
+                                Quiz Title
+                              </div>
+                              <div class="cell">
+                                Teacher
+                              </div>
+                              <div class="cell">
+                                Solved
+                              </div>
+                              <div class="cell">
+                                Views
+                              </div>
+                              <div class="cell">
+                                Created Time
+                              </div>
+                            </div>
+                            {% if top_solved_quizs or top_not_solved_quizs %}
+                              {% for quiz in top_solved_quizs %}
+                                <div class="row_student">
+                                  <div class="cell" data-title="Quiz Title">
+                                    {{quiz[0].title}}
+                                  </div>
+                                  <div class="cell" data-title="Teacher">
+                                    {{quiz[0].teacher.first_name}} {{quiz[0].teacher.second_name}}
+                                  </div>
+                                  <div class="cell" data-title="Solved">
+                                    Yes
+                                  </div>
+                                  <div class="cell" data-title="Views">
+                                    {{quiz[0].number_of_views}}
+                                  </div>
+                                  <div class="cell" data-title="Created Time">
+                                    {{quiz[0].created_time}}
+                                  </div>
+                                </div>
+                              {% endfor %}
+                              {% for quiz in top_not_solved_quizs %}
+                                <div class="row_student">
+                                  <div class="cell" data-title="Quiz Title">
+                                    {{quiz[0].title}}
+                                  </div>
+                                  <div class="cell" data-title="Teacher">
+                                    {{quiz[0].teacher.first_name}} {{quiz[0].teacher.second_name}}
+                                  </div>
+                                  <div class="cell" data-title="Solved">
+                                    No
+                                  </div>
+                                  <div class="cell" data-title="Views">
+                                    {{quiz[0].number_of_views}}
+                                  </div>
+                                  <div class="cell" data-title="Created Time">
+                                    {{quiz[0].created_time}}
+                                  </div>
+                                </div>
+                              {% endfor %}
+                            {% else %}
+                              <div class="row_student">
+                                  <div class="cell" data-title="Quiz Title">
+                                    None
+                                  </div>
+                                  <div class="cell" data-title="Teacher">
+                                    None
+                                  </div>
+                                  <div class="cell" data-title="Solved">
+                                    None
+                                  </div>
+                                  <div class="cell" data-title="Views">
+                                    None
+                                  </div>
+                                  <div class="cell" data-title="Created Time">
+                                    None
+                                  </div>
+                              </div>
+                            {% endif %}
+                          </div>
+                    </div>
+
+
+                    <h2 class="display-6 text-center mb-4">Recent</h2>
+                    <div class="container">
+                      <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+                        {% if quizs %}
+                          {% for quiz in quizs %}
+                            <div class="col">
+                              <div class="card mb-4 rounded-3 shadow-sm">
+                                <div class="card-header py-3">
+                                  <h4 class="my-0 fw-normal"><strong>{{ quiz[0].title }}</strong></h4>
+                                </div>
+                                <div class="card-body">
+                                  <h1 class="card-title pricing-card-title">
+                                    <small class="text-body-secondary fw-light">
+                                      {{quiz[0].created_time}}
+                                    </small>
+                                  </h1>
+                                  <ul class="list-unstyled mt-3 mb-4">
+                                    <li>by {{quiz[0].teacher.first_name}} {{quiz[0].teacher.second_name}}</li>
+                                    <li>{{quiz[0].question_type}}</li>
+                                    <li>{{quiz[0].question_amount}} questions</li>
+                                  </ul>
+                                  <a href="{{url_for('quiz_functionality.solve_quiz', q_id=quiz[0].id)}}" role="button">
+                                    <button type="button" class="w-100 btn btn-lg btn-primary">Attempt Quiz</button>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          {% endfor %}
+                        {% else %}
+                          <h5 style="color: grey; text-align: center">No recent quizzes available</h5>
+                        {% endif %}
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="position-sticky" style="top: 2rem;">
+                  <div class="p-4 mb-3 bg-body-tertiary rounded">
+                    <h4 class="fst-italic">About</h4>
+                    <p class="mb-0">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
+                  </div>
+
+                  <div>
+                    <h4 class="fst-italic">For You</h4>
+                    <ul class="list-unstyled">
+                      <li>
+                        <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top link-hovering" href="https://www.youtube.com/watch?v=B1J6Ou4q8vE" target="_blank">
+                          <iframe width="200" height="120" src="https://www.youtube-nocookie.com/embed/B1J6Ou4q8vE?si=c9okx2I8KBYoQsPs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                          <div class="col-lg-8">
+                              <h6 class="mb-0">Animations vs. Math</h6>
+                            <small class="text-body-secondary">January 15, 2023</small>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                        <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top link-hovering" href="https://www.youtube.com/watch?v=TMubSggUOVE" target="_blank">
+                          <iframe width="200" height="120" src="https://www.youtube.com/embed/TMubSggUOVE?si=8dVYXO-gTs9y7OOC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                          <div class="col-lg-8">
+                              <h6 class="mb-0">Math Videos: How To Learn Basic Arithmetic Fast - Online Tutorial Lessons</h6>
+                            <small class="text-body-secondary">January 14, 2023</small>
+                          </div>
+                        </a>
+                      </li>
+                      <li>
+                          <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top link-hovering" href="https://www.youtube.com/watch?v=F0X5xY_2c-c" target="_blank">
+                            <iframe width="200" height="120" src="https://www.youtube.com/embed/F0X5xY_2c-c?si=cdfswLJQCKrRKl8x" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            <div class="col-lg-8">
+                              <h6 class="mb-0">Math Foundations – Basic Math Skills every Adult should know</h6>
+                              <small class="text-body-secondary">January 13, 2023</small>
+                            </div>
+                          </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+{% include "footer.html" %}
+</html>

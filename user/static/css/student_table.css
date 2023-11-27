@@ -1,0 +1,150 @@
+.body_tb {
+  font-family: "Helvetica Neue", Helvetica, Arial;
+  font-size: 18px;
+  line-height: 50px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+@media screen and (max-width: 580px) {
+  .body_tb {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}
+
+.link-hovering{
+    cursor: pointer;
+}
+
+.hoverTable tr:hover td {
+  background: #efefef;
+  cursor: pointer;
+}
+
+.wrapper_tb {
+  margin: 0 auto;
+  max-width: 1300px;
+}
+
+/* Apply a blurred border effect to the table */
+.blurred-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 2px solid transparent;
+    border-radius: 10px; /* Adjust to control the level of border blur */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Adjust for shadow effect */
+
+    /* Add other styling properties as needed */
+}
+
+/* Style the table headers and cells */
+.blurred-table th, .blurred-table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid transparent;
+}
+
+.rounded-corners {
+ /* Change these properties */
+ --border: 1px solid white;
+ border-radius: 10px;
+
+ /* Don't change these properties */
+ border-spacing: 0;
+ border-collapse: separate;
+ border: var(--border);
+ overflow: hidden;
+}
+
+/* Apply a border to the right of all but the last column */
+.rounded-corners th:not(:last-child),
+.rounded-corners td:not(:last-child) {
+ border-right: var(--border);
+}
+
+/* Apply a border to the bottom of all but the last row */
+.rounded-corners>thead>tr:not(:last-child)>th,
+.rounded-corners>thead>tr:not(:last-child)>td,
+.rounded-corners>tbody>tr:not(:last-child)>th,
+.rounded-corners>tbody>tr:not(:last-child)>td,
+.rounded-corners>tfoot>tr:not(:last-child)>th,
+.rounded-corners>tfoot>tr:not(:last-child)>td,
+.rounded-corners>tr:not(:last-child)>td,
+.rounded-corners>tr:not(:last-child)>th,
+.rounded-corners>thead:not(:last-child),
+.rounded-corners>tbody:not(:last-child),
+.rounded-corners>tfoot:not(:last-child) {
+ border-bottom: var(--border);
+}
+
+.table_student {
+  margin: 0 0 100px 0;
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  display: table;
+}
+@media screen and (max-width: 580px) {
+  .table_student {
+    display: block;
+  }
+}
+
+.row_student {
+  display: table-row;
+  background: #f6f6f6;
+}
+.row_student:nth-of-type(odd) {
+  background: #e9e9e9;
+}
+
+.row_student.header {
+  font-weight: 900;
+  color: #ffffff;
+  background: #ea6153;
+}
+
+.row_student.green {
+  background: #27ae60;
+}
+.row_student.blue {
+  background: #2980b9;
+}
+@media screen and (max-width: 580px) {
+  .row_student {
+    padding: 14px 0 7px;
+    display: block;
+  }
+  .row_student.header {
+    padding: 0;
+    height: 6px;
+  }
+  .row_student.header .cell {
+    display: none;
+  }
+  .row_student .cell {
+    margin-bottom: 10px;
+  }
+  .row_student .cell:before {
+    margin-bottom: 3px;
+    content: attr(data-title);
+    min-width: 98px;
+    font-size: 10px;
+    line-height: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #969696;
+    display: block;
+  }
+}
+
+.cell {
+  padding: 6px 12px;
+  display: table-cell;
+}
+@media screen and (max-width: 580px) {
+  .cell {
+    padding: 2px 16px;
+    display: block;
+  }
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include "header.html" %}
+<header>
+    <link
+      href="{{ url_for('.static', filename='css/quiz_list.css')}}"
+      rel="stylesheet"
+    >
+</header>
+<body class="for_body">
+    <ol class="for_ol" style="--length: {{number_of_quizs}}" role="list">
+        {% for n in range(0, number_of_quizs) %}
+            <li class="for_li" style="--i: {{n+1}}">
+                <div class="container d-flex flex-column">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a
+                                href="{{url_for('quiz_functionality.quiz_preview_page', mode='preview_specific', quiz_id=user_quizs[n].id)}}"
+                                style="text-decoration:none"
+                                class="for_h3"
+                            >{{user_quizs[n].title}}</a>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-baseline justify-content-end">
+                            <h4 class="for_h4">[{{user_quizs[n].created_time}}]</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="container d-flex flex-column">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="for_p">{{user_quizs[n].question_type}}</p>
+                        </div>
+                        <div class="col-md-6 d-flex align-baseline justify-content-end">
+                            <a href="{{url_for('quiz_functionality.delete_quiz', quiz_id=user_quizs[n].id)}}" role="button">
+                                <button type="button" class="btn btn-danger">Delete</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+<!--                <p class="for_p">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Adipiscing diam donec adipiscing tristique risus.</p>-->
+            </li>
+        {% endfor %}
+<!--        <li style="&#45;&#45;i: 2">-->
+<!--            <h3>Information gathering and analysis</h3>-->
+<!--            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Adipiscing diam donec adipiscing tristique risus.</p>-->
+<!--        </li>-->
+<!--        <li style="&#45;&#45;i: 3">-->
+<!--            <h3>Creating your claim</h3>-->
+<!--            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Adipiscing diam donec adipiscing tristique risus.</p>-->
+<!--        </li>-->
+<!--        <li style="&#45;&#45;i: 4">-->
+<!--            <h3>Approvals and submission</h3>-->
+<!--            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Adipiscing diam donec adipiscing tristique risus.</p>-->
+<!--        </li>-->
+<!--        <li style="&#45;&#45;i: 5">-->
+<!--            <h3>Receiving your benefit</h3>-->
+<!--            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Adipiscing diam donec adipiscing tristique risus.</p>-->
+<!--        </li>-->
+    </ol>
+</body>
+{% include "footer.html" %}
+</html>

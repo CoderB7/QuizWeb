@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include "header.html" %}
+<body>
+
+    <!-- Welcome header -->
+    <div class="px-4 py-5 my-5 text-center">
+      <img class="d-block mx-auto mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+      <h1 class="display-5 fw-bold text-body-emphasis"> Welcome {{current_user.first_name}} </h1>
+    </div>
+    <!-- Options -->
+    <div class="container px-4 py-5" id="custom-cards">
+
+      <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+        <div class="col">
+          <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('../../../static/assets/images/create-quiz.png');">
+            <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+              <ul class="d-flex list-unstyled mt-auto">
+<!--                <li class="me-auto">-->
+<!--                  <img src="../static/assets/favicon.ico" alt="Bootstrap" width="32" height="32" class="rounded-circle">-->
+<!--                </li>-->
+                <li class="d-flex align-items-center me-3">
+                    <a href="{{url_for('quiz_functionality.quiz', current_user=current_user)}}" style="color: black;" class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">
+                        <h1 class="fw-bolder">
+                            Create a quiz
+                        </h1>
+                    </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('../../../static/assets/images/my-quizs.png');">
+            <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+              <ul class="d-flex list-unstyled mt-auto">
+<!--                <li class="me-auto">-->
+<!--                  <img src="../static/assets/favicon.ico" alt="Bootstrap" width="32" height="32" class="rounded-circle">-->
+<!--                </li>-->
+                <li class="d-flex align-items-center me-3">
+                    <a href="{{url_for('quiz_functionality.quiz_list')}}" style="color: black;" class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">
+                        <h1 class="fw-bolder">
+                            My quizs
+                        </h1>
+                    </a>
+                </li>
+<!--                <li style="color: black;" class="d-flex align-items-center">-->
+<!--                  <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>-->
+<!--                  <small>4d</small>-->
+<!--                </li>-->
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('../../../static/assets/images/quiz-results.png');">
+            <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+              <ul class="d-flex list-unstyled mt-auto">
+<!--                <li class="me-auto">-->
+<!--                  <img src="../static/assets/favicon.ico" alt="Bootstrap" width="32" height="32" class="rounded-circle">-->
+<!--                </li>-->
+                <li class="d-flex align-items-center me-3">
+                    <a href="{{url_for('quiz_functionality.quiz_results', current_user=current_user)}}" style="color: black;" class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">
+                        <h1 class="fw-bolder">
+                            Quiz Results
+                        </h1>
+                    </a>
+                </li>
+<!--                <li style="color: black;" class="d-flex align-items-center">-->
+<!--                  <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>&ndash;&gt;-->
+<!--                  <small>5d</small>-->
+<!--                </li>-->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Process Details -->
+    <div class="container px-4 py-5" id="featured-3">
+      <h2 class="pb-2 border-bottom" style="text-align: center">How to make a quiz</h2>
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+          <div class="feature col">
+            <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+              <svg class="bi" width="1em" height="1em"><use xlink:href="#collection"></use></svg>
+            </div>
+            <h3 class="fs-2 text-body-emphasis">Featured title</h3>
+            <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+            <a href="#" class="icon-link">
+              Call to action
+              <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+            </a>
+          </div>
+          <div class="feature col">
+            <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+              <svg class="bi" width="1em" height="1em"><use xlink:href="#people-circle"></use></svg>
+            </div>
+            <h3 class="fs-2 text-body-emphasis">Featured title</h3>
+            <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+            <a href="#" class="icon-link">
+              Call to action
+              <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+            </a>
+          </div>
+          <div class="feature col">
+            <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+              <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"></use></svg>
+            </div>
+            <h3 class="fs-2 text-body-emphasis">Featured title</h3>
+            <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+            <a href="#" class="icon-link">
+              Call to action
+              <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+            </a>
+          </div>
+        </div>
+    </div>
+</body>
+{% include "footer.html" %}
+</html>

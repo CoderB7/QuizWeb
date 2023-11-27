@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link
+         href="{{url_for('.static', filename='css/quiz_solve.css')}}"
+         rel="stylesheet"
+    >viewport
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container-sm">
+        <div class="quiz_over_small_width">
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                      <div class="card-header py-3 text-bg-info border-primary">
+                        <h4 class="my-0 fw-normal">{{quiz_title}}</h4>
+                      </div>
+                      <div class="card-body">
+                        <h1 class="card-title pricing-card-title">QUIZ OVER</h1>
+                          <h4> Total Score: <strong>{{score}}</strong>/{{total_score}}</h4>
+                        <h4> Time spent: </h4>
+                        <a href="{{url_for('users.student_page')}}" class="w-100 btn btn-lg btn-outline-primary">Back to the Course</a>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<!--        <div class="score-counter">-->
+<!--            <p class="score-text">CORRECT:</p>-->
+<!--        </div>-->

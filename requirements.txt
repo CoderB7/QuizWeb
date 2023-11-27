@@ -1,0 +1,10 @@
+flask~=2.2.5
+werkzeug~=2.2.3
+WTForms~=3.0.1
+flask_sqlalchemy==3.0.5
+SQLAlchemy==2.0.19
+gunicorn==21.2.0
+psycopg2-binary==2.9.6
+Flask_WTF==1.1.1
+Flask_Login==0.6.2
+Bootstrap_Flask==2.2.0

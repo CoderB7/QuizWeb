@@ -1,0 +1,89 @@
+.table_student {
+  font-family: "Helvetica Neue", Helvetica, Arial;
+  font-size: 20px;
+  line-height: 25px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  margin: 0 0 10px 0;
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  display: table;
+}
+
+@media screen and (max-width: 580px) {
+  .table_student {
+    display: block;
+  }
+}
+
+.table-for-each-quiz{
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+
+.row_student {
+  display: table-row;
+  background: #f6f6f6;
+}
+
+.row_student.header {
+  font-weight: 1000;
+  color: #ffffff;
+  background: #78C1F3;
+}
+
+.row_student.green {
+  background: #27ae60;
+}
+.row_student.blue {
+  background: #2980b9;
+}
+@media screen and (max-width: 580px) {
+  .row_student {
+    padding: 14px 0 7px;
+    display: block;
+  }
+  .row_student.header {
+    padding: 0;
+    height: 6px;
+  }
+  .row_student.header .cell {
+    display: none;
+  }
+  .row_student .cell {
+    margin-bottom: 10px;
+  }
+  .row_student .cell:before {
+    margin-bottom: 3px;
+    content: attr(data-title);
+    min-width: 98px;
+    font-size: 10px;
+    line-height: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #969696;
+    display: block;
+  }
+}
+
+.cell {
+  padding: 15px 15px;
+  display: table-cell;
+}
+@media screen and (max-width: 580px) {
+  .cell {
+    padding: 6px 16px;
+    display: block;
+  }
+}
+
+.hoverTable tr:hover td {
+  background: #efefef;
+  cursor: pointer;
+}
+
+.wrapper_tb {
+  margin: 0 auto;
+  max-width: 1300px;
+}

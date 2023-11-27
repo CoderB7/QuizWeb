@@ -1,0 +1,134 @@
+<!doctype html>
+{% from "bootstrap5/form.html" import render_form_row %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../static/assets/favicon.ico" />
+    <link
+        href="{{ url_for('.static', filename='assets/fonts/icomoon/style.css')}}"
+        rel="stylesheet"
+    />
+
+    <link
+        href="{{ url_for('.static', filename='css/owl.carousel.min.css')}}"
+        rel="stylesheet"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="{{url_for('.static', filename='css/bootstrap.min.css')}}"
+        rel="stylesheet"
+    />
+
+    <!-- Style -->
+    <link
+        href="{{ url_for('.static', filename='css/style.css') }}"
+        rel="stylesheet"
+    />
+    <title>Sign Up</title>
+  </head>
+  <body>
+
+
+  <div class="d-lg-flex half">
+    <div class="bg order-1 order-md-2" style="background-image: url('../../../static/assets/images/bg_1.jpg');"></div>
+    <div class="contents order-2 order-md-1">
+
+      <div class="container">
+        <div class="row align-items-center justify-content-center">
+          <div class="col-md-7 py-5">
+            <h3>Register</h3>
+<!--            <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>-->
+              <form action="{{ url_for('authenticate.register') }}" method="POST">
+                {{ render_form_row([form.education], col_map={'title': 'col-md-2'})}}
+                {{ render_form_row([form.first_name, form.second_name], col_map={'title': 'col-md-2'}) }}
+                {{ render_form_row([form.email], col_map={'title': 'col-md-2'}) }}
+                {{ render_form_row([form.phone_number], col_map={'title': 'col-md-2'}) }}
+                {{ render_form_row([form.password], col_map={'title': 'col-md-2'}) }}
+                {{ render_form_row([form.submit])}}
+              </form>
+<!--            <form action="#" method="post">-->
+<!--              <div class="row">-->
+<!--                <div class="col-md-6">-->
+<!--                  <div class="form-group first">-->
+<!--                    <label for="fname">First Name</label>-->
+<!--                    <input type="text" class="form-control" placeholder="e.g. John" id="fname">-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-6">-->
+<!--                  <div class="form-group first">-->
+<!--                    <label for="lname">Last Name</label>-->
+<!--                    <input type="text" class="form-control" placeholder="e.g. Smith" id="lname">-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="row">-->
+<!--                <div class="col-md-12">-->
+<!--                  <div class="form-group first">-->
+<!--                    <label for="email">Email Address</label>-->
+<!--                    <input type="email" class="form-control" placeholder="e.g. john@your-domain.com" id="email">-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="row">-->
+<!--                <div class="col-md-6">-->
+<!--                  <div class="form-group first">-->
+<!--                    <label for="lname">Phone Number</label>-->
+<!--                    <input type="text" class="form-control" placeholder="+00 0000 000 0000" id="lname">-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-6">-->
+<!--                  <div class="form-group first">-->
+<!--                    <label for="lname">Website</label>-->
+<!--                    <input type="text" class="form-control" placeholder="e.g. https://google.com" id="lname">-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="row">-->
+<!--                <div class="col-md-6">-->
+
+<!--                  <div class="form-group last mb-3">-->
+<!--                    <label for="password">Password</label>-->
+<!--                    <input type="password" class="form-control" placeholder="Your Password" id="password">-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-md-6">-->
+
+<!--                  <div class="form-group last mb-3">-->
+<!--                    <label for="re-password">Re-type Password</label>-->
+<!--                    <input type="password" class="form-control" placeholder="Your Password" id="re-password">-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+
+<!--              <div class="d-flex mb-5 mt-4 align-items-center">-->
+<!--                <div class="d-flex align-items-center">-->
+<!--                <label class="control control&#45;&#45;checkbox mb-0"><span class="caption">Creating an account means you're okay with our <a href="#">Terms and Conditions</a> and our <a href="#">Privacy Policy</a>.</span>-->
+<!--                  <input type="checkbox" checked="checked"/>-->
+<!--                  <div class="control__indicator"></div>-->
+<!--                </label>-->
+<!--              </div>-->
+<!--              </div>-->
+
+<!--              <input type="submit" value="Register" class="btn px-5 btn-primary">-->
+
+<!--            </form>-->
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+    <script src="{{ url_for('.static', filename='js/scripts.js') }}"></script>
+    <script src="{{ url_for('.static', filename='js/jquery-3.3.1.min.js')}}"></script>
+    <script src="{{ url_for('.static', filename='js/popper.min.js')}}"></script>
+    <script src="{{ url_for('.static', filename='js/bootstrap.min.js')}}"></script>
+    <script src="{{ url_for('.static', filename='js/main.js')}}"></script>
+  </body>
+</html>
