@@ -12,7 +12,6 @@ import os
 # '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get('FLASK_KEY')
-app.config["TESTING"] = True
 Bootstrap5(app)
 
 # Configure Flask login
