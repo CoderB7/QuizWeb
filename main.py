@@ -2,7 +2,6 @@ import dotenv
 from flask import Flask
 from sqlalchemy.event import listen
 from flask_bootstrap import Bootstrap5
-
 from modal_database.modal import User, Quiz, StudentAnswers
 from authentication.auth import authenticate
 from general.general import general
@@ -31,7 +30,6 @@ def load_user(user_id):
 
 # CONNECT TO DB
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
-# postgres://quiz_web_db_user:bDMi6xTyhsQzSEp2qd2Iu3w6ER6hxW5r@dpg-cm1ein21hbls73ahntj0-a.oregon-postgres.render.com/quiz_web_db
 db.init_app(app)
 
 # Registering Blueprints
