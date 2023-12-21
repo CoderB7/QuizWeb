@@ -29,7 +29,7 @@ def load_user(user_id):
 
 
 # CONNECT TO DB
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://quiz_web_db_user:bDMi6xTyhsQzSEp2qd2Iu3w6ER6hxW5r@dpg-cm1ein21hbls73ahntj0-a:5432/quiz_web_db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://quiz_web_db_nlc5_user:T6RvlGoPNvvfkOj6fndKwFftr7dhAugU@dpg-cm26gd0cmk4c73cnv68g-a:5432/quiz_web_db_nlc5"
 db.init_app(app)
 
 # Registering Blueprints
