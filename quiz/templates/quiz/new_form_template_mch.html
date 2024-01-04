@@ -16,7 +16,7 @@
     <div class="container">
         <main class="form-signin">
         <h1 class="h1">Q{{q_number}}</h1>
-            <form name="question_form" id="Q{{q_number}}" method="POST" action="{{url_for('quiz_functionality.new_form', q_number=q_number)}}">
+            <form name="question_form" id="Q{{q_number}}" method="POST" action="{{url_for('quiz_functionality.new_form_m_ch', q_number=q_number)}}">
                 {{ question_form.hidden_tag() }}
                 <div class="form-floating">
                     {{ render_form_row([question_form.question], col_map={'title': 'col-md-2'})}}

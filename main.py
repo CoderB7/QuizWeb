@@ -45,4 +45,6 @@ with app.app_context():
 
 
 if __name__ == "__main__":
-    app.run(debug=False, port=5001)
+    app.jinja_env.auto_reload = True
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
+    app.run(debug=True, port=5001)

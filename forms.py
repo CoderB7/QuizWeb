@@ -66,16 +66,19 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Log In")
 
 
-class QuizForm(FlaskForm):
+class TrueFalseForm(FlaskForm):
     quiz_title = StringField(
         "Quiz Title",
         validators=[DataRequired()],
         render_kw={"placeholder": "Type your quiz title"},
     )
-    question_type = SelectField(
-        "Type: ",
-        choices=["Question Type", "Multiple Choice", "none"],
+
+
+class MultipleChoiceForm(FlaskForm):
+    quiz_title = StringField(
+        "Quiz Title",
         validators=[DataRequired()],
+        render_kw={"placeholder": "Type your quiz title"},
     )
     num_answer_field = SelectField(
         "Number of answer fields",
@@ -83,9 +86,45 @@ class QuizForm(FlaskForm):
         validators=[DataRequired()],
         id="num_field",
     )
-    submit = SubmitField("Go", id="submit")
     # q_numbers = IntegerField("Number of questions", render_kw={"placeholder": "0"}, validators=[DataRequired()])
     # score_for_each = IntegerField("Score for each correct answer", render_kw={"placeholder": "0"}, validators=[DataRequired()])
+
+
+class OpenTriviaForm(FlaskForm):
+    question_amount = IntegerField(
+        "Number of Questions:",
+        validators=[InputRequired(), DataRequired()],
+        render_kw={"placeholder": 10},
+    )
+    category = SelectField(
+        "Select Category:",
+        choices=[("", "Any Category"), (9, "General Knowledge"), (10, "Entertainment: Books"), (11, "Entertainment: Film"),
+                 (12, "Entertainment: Music"), (13, "Entertainment: Musicals & Theatres"),
+                 (14, "Entertainment: Television"), (15, "Entertainment: Video Games"),
+                 (16, "Entertainment: Board Games"), (17, "Science & Nature"),
+                 (18, "Science: Computers"), (19, "Science: Mathematics"), (20, "Mythology"), (21, "Sports"),
+                 (22, "Geography"), (23, "History"), (24, "Politics"),
+                 (25, "Art"), (26, "Celebrities"), (27, "Animals"), (28, "Vehicles"), (29, "Entertainment: Comics"),
+                 (30, "Science: Gadgets"),
+                 (31, "Entertainment: Japanese Anime & Manga"), (32, "Entertainment: Cartoon & Animations")
+                 ],
+        validate_choice=True
+    )
+    difficulty = SelectField(
+        "Select Difficulty:",
+        choices=[("", "Any Difficulty"), ("easy", "Easy"), ("medium", "Medium"), ("hard", "Hard")],
+        validate_choice=True
+    )
+    type = SelectField(
+        "Select Type:",
+        choices=[("", "Any Type"), ("multiple", "Multiple Choice"), ("boolean", "True / False")],
+        validate_choice=True
+    )
+    point = IntegerField(
+        label="Set Score",
+        validators=[InputRequired(), DataRequired()],
+        render_kw={"placeholder": 1},
+    )
 
 
 class MultiCheckboxField(SelectMultipleField):
@@ -93,7 +132,29 @@ class MultiCheckboxField(SelectMultipleField):
     option_widget = widgets.CheckboxInput()
 
 
-class QuestionForm(FlaskForm):
+class QuestionFormTF(FlaskForm):
+    question = StringField(
+        label="", validators=[DataRequired()], render_kw={"placeholder": "Question"}
+    )
+    correct_answer = StringField(
+        label="Correct answer here",
+        validators=[DataRequired()],
+        render_kw={"placeholder": "Correct answer"},
+    )
+    point = IntegerField(
+        label="Set Score",
+        validators=[InputRequired(), DataRequired()],
+        render_kw={"placeholder": 1},
+    )
+    true_false = RadioField(
+        label="",
+        choices=[("True", "True"), ("False", "False")],
+        validators=[DataRequired()],
+        coerce=bool,
+    )
+
+
+class QuestionFormMCh(FlaskForm):
     dynamic_answers = FieldList(
         StringField(
             label="", validators=[InputRequired()], render_kw={"placeholder": "Answer"}

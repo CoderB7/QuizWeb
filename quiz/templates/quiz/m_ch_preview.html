@@ -22,7 +22,7 @@
           <div class="row_quiz header">
               {% if mode_to_preview == "preview" %}
                   <h1 class="h1 fw-bold"><strong>{{form_data['quiz_title']}}</strong> </h1>
-                  <p class="p_preview">{{form_data['question_type']}} questions</p>
+                  <p class="p_preview">{{quiz_type}} questions</p>
               {% elif mode_to_preview == "preview_specific" %}
                   <h1 class="h1 fw-bold"><strong>{{quiz_to_preview.title}}</strong> </h1>
                   <p class="p_preview">{{quiz_to_preview.question_type}} questions</p>
@@ -46,12 +46,12 @@
           {% if mode_to_preview == "preview" %}
               <details>
                 <summary>
-                  <a href="{{url_for('quiz_functionality.quiz')}}" role="button">
+                  <a href="{{url_for('quiz_functionality.m_ch_form')}}" role="button">
                     <button id="back" type="submit" class="btn btn-success">
                         Back
                     </button>
                   </a>
-                  <a href="{{url_for('quiz_functionality.quiz_preview_page', mode='upload', quiz_id='none')}}" role="button">
+                  <a href="{{url_for('quiz_functionality.m_ch_preview_page', mode='upload', quiz_id='none')}}" role="button">
                     <button id="upload" type="button" class="btn btn-primary">
                         Upload
                     </button>

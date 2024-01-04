@@ -16,48 +16,99 @@
 </head>
 <body class="for_body">
     <div class="container">
-      <div class="for_history_view border-primary">
-          <h1>History</h1>
-      </div>
-      {% for time in star_times %}
-          <h3 class="pb-4 mb-4 fst-italic border-bottom">
-             {{ time }}
-          </h3>
-          {% for quiz in solved_quizzes %}
-            {% if quiz.solved_time == time %}
-              <ol class="for_ol" style="--length: 1" role="list">
-                    <li class="for_history_li" style="--i: 1">
-                        <div class="container d-flex flex-column">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <a
-                                        href="{{url_for('quiz_functionality.quiz_preview_page', mode='preview_specific', quiz_id=2)}}"
-                                        style="text-decoration:none"
-                                        class="for_history_h3"
-                                    >{{quiz.subject_title}}</a>
+      {% if no_data %}
+        <div class="for_history_view border-primary">
+          <h1>No Data</h1>
+        </div>
+      {% else %}
+          <div class="for_history_view border-primary">
+              <h1>History</h1>
+          </div>
+          {% for time in star_times %}
+              <h3 class="pb-4 mb-4 fst-italic border-bottom">
+                 {{ time }}
+              </h3>
+              {% for quiz in solved_quizzes %}
+                {% if quiz.solved_time == time %}
+                  {% if quiz.question_type == "multiple" or quiz.question_type == "boolean" %}
+                      <ol class="for_ol" style="--length: 1" role="list">
+                            <li class="for_history_li" style="--i: 1">
+                                <div class="container d-flex flex-column">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <a
+                                                href="{{url_for('quiz_functionality.from_library_preview_page', mode='preview_specific', quiz_id=quiz.solved_quiz_id)}}"
+                                                style="text-decoration:none"
+                                                class="for_history_h3"
+                                            >{{quiz.subject_title}}</a>
+                                        </div>
+                                        <div class="col-md-6 d-flex align-items-baseline justify-content-end">
+                                            <h4 class="for_h4">{{quiz.solved_time}}</h4>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-6 d-flex align-items-baseline justify-content-end">
-                                    <h4 class="for_h4">{{quiz.solved_time}}</h4>
+                                <div class="container d-flex flex-column">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            {% if quiz.question_type == "multiple" %}
+                                                <p class="for_p">Multiple Choice</p>
+                                            {% elif quiz.question_type == "boolean" %}
+                                                <p class="for_p">True/False</p>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-6 d-flex align-baseline justify-content-end">
+                                            <a href="{{url_for('quiz_functionality.student_answer', student_id=quiz.student_id, quiz_id=quiz.solved_quiz_id, from_page='quiz_history')}}" role="button">
+                                                <button type="button" class="btn btn-secondary">View</button>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="container d-flex flex-column">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <p class="for_p">{{quiz.question_type}}</p>
+                            </li>
+                      </ol>
+                  {% else %}
+                      <ol class="for_ol" style="--length: 1" role="list">
+                            <li class="for_history_li" style="--i: 1">
+                                <div class="container d-flex flex-column">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            {% if quiz.question_type == "Multiple Choice" %}
+                                                <a
+                                                    href="{{url_for('quiz_functionality.m_ch_preview_page', mode='preview_specific', quiz_id=quiz.solved_quiz_id)}}"
+                                                    style="text-decoration:none"
+                                                    class="for_history_h3"
+                                                >{{quiz.subject_title}}</a>
+                                            {% elif quiz.question_type == "True/False" %}
+                                                <a
+                                                    href="{{url_for('quiz_functionality.t_f_preview_page', mode='preview_specific', quiz_id=quiz.solved_quiz_id)}}"
+                                                    style="text-decoration:none"
+                                                    class="for_history_h3"
+                                                >{{quiz.subject_title}}</a>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-6 d-flex align-items-baseline justify-content-end">
+                                            <h4 class="for_h4">{{quiz.solved_time}}</h4>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-6 d-flex align-baseline justify-content-end">
-                                    <a href="{{url_for('quiz_functionality.student_answer', student_id=quiz.student_id, quiz_id=quiz.solved_quiz_id, from_page='quiz_history')}}" role="button">
-                                        <button type="button" class="btn btn-secondary">View</button>
-                                    </a>
+                                <div class="container d-flex flex-column">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p class="for_p">{{quiz.question_type}}</p>
+                                        </div>
+                                        <div class="col-md-6 d-flex align-baseline justify-content-end">
+                                            <a href="{{url_for('quiz_functionality.student_answer', student_id=quiz.student_id, quiz_id=quiz.solved_quiz_id, from_page='quiz_history')}}" role="button">
+                                                <button type="button" class="btn btn-secondary">View</button>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-              </ol>
-            {% endif %}
+                            </li>
+                      </ol>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
           {% endfor %}
-      {% endfor %}
+      {% endif %}
     </div>
 </body>
 </html>

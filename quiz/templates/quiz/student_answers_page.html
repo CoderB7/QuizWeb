@@ -18,36 +18,69 @@
       <div class="col-sm-8 py-5 mx-auto">
           <h1 class="display-5 fw-bolder" style="text-align: center; color: #2980b9">{{student_answer_data.student.first_name}} {{student_answer_data.student.second_name}}</h1>
           <h2 class="display-4, fw-normal" style="text-align: center"> Quiz from <span>{{quiz_data.title}}</span></h2>
-          {% for key in questions %}
-            {% if questions[key]['correct_answer'] == student_answers[key][0]['answer'] %}
-              <h3 class="fs-4">
-                  <img src="{{url_for('.static', filename='assets/images/correct.png')}}" width="42" height="42" >
-                  {{key}})     {{ questions[key]['question'] }}
-              </h3>
-            {% else %}
-              <h3 class="fs-4">
-                  <img src="{{url_for('.static', filename='assets/images/wrong.png')}}" width="42" height="42">
-                  {{key}})     {{ questions[key]['question'] }}
-              </h3>
-            {% endif %}
-            <div class="row">
-                <div class="col">
-                    <p class="fs-5" style="color: #54B435"><strong>Correct answer: </strong> {{ questions[key]['correct_answer'] }} </p>
-                </div>
-                <div class="col">
-                    <p class="fs-5" style="color: #F94C10"><strong>Student answer: </strong> {{ student_answers[key][0]['answer'] }} </p>
-                </div>
-                {% if questions[key]['correct_answer'] == student_answers[key][0]['answer'] %}
-                    <div class="col">
-                        <p class="fs-5" style="color: #39A7FF"><strong>Points: </strong> {{ questions[key]['point'] }} </p>
-                    </div>
+          {% if from_library %}
+            {% for n in range(0, question_amount) %}
+                {% if questions[n]['correct_answer'] == student_answers[key+(n+1)|string][0]['answer'] %}
+                  <h3 class="fs-4">
+                      <img src="{{url_for('.static', filename='assets/images/correct.png')}}" width="42" height="42" >
+                      Q{{n+1}})     {{ questions[n]['question'] }}
+                  </h3>
                 {% else %}
-                    <div class="col">
-                        <p class="fs-5" style="color: #39A7FF"><strong>Points: </strong> 0 </p>
-                    </div>
+                  <h3 class="fs-4">
+                      <img src="{{url_for('.static', filename='assets/images/wrong.png')}}" width="42" height="42">
+                      Q{{n+1}})     {{ questions[n]['question'] }}
+                  </h3>
                 {% endif %}
-            </div>
-          {% endfor %}
+                <div class="row">
+                    <div class="col">
+                        <p class="fs-5" style="color: #54B435"><strong>Correct answer: </strong> {{ questions[n]['correct_answer'] }} </p>
+                    </div>
+                    <div class="col">
+                        <p class="fs-5" style="color: #F94C10"><strong>Student answer: </strong> {{ student_answers[key+(n+1)|string][0]['answer'] }} </p>
+                    </div>
+                    {% if questions[n]['correct_answer'] == student_answers[key+(n+1)|string][0]['answer'] %}
+                        <div class="col">
+                            <p class="fs-5" style="color: #39A7FF"><strong>Points: </strong> {{ point }} </p>
+                        </div>
+                    {% else %}
+                        <div class="col">
+                            <p class="fs-5" style="color: #39A7FF"><strong>Points: </strong> 0 </p>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+          {% else %}
+              {% for key in questions %}
+                {% if questions[key]['correct_answer'] == student_answers[key][0]['answer'] %}
+                  <h3 class="fs-4">
+                      <img src="{{url_for('.static', filename='assets/images/correct.png')}}" width="42" height="42" >
+                      {{key}})     {{ questions[key]['question'] }}
+                  </h3>
+                {% else %}
+                  <h3 class="fs-4">
+                      <img src="{{url_for('.static', filename='assets/images/wrong.png')}}" width="42" height="42">
+                      {{key}})     {{ questions[key]['question'] }}
+                  </h3>
+                {% endif %}
+                <div class="row">
+                    <div class="col">
+                        <p class="fs-5" style="color: #54B435"><strong>Correct answer: </strong> {{ questions[key]['correct_answer'] }} </p>
+                    </div>
+                    <div class="col">
+                        <p class="fs-5" style="color: #F94C10"><strong>Student answer: </strong> {{ student_answers[key][0]['answer'] }} </p>
+                    </div>
+                    {% if questions[key]['correct_answer'] == student_answers[key][0]['answer'] %}
+                        <div class="col">
+                            <p class="fs-5" style="color: #39A7FF"><strong>Points: </strong> {{ questions[key]['point'] }} </p>
+                        </div>
+                    {% else %}
+                        <div class="col">
+                            <p class="fs-5" style="color: #39A7FF"><strong>Points: </strong> 0 </p>
+                        </div>
+                    {% endif %}
+                </div>
+              {% endfor %}
+          {% endif %}
           <h3 class="fs-4">
              Overall: {{student_answer_data.student_score}}/{{student_answer_data.total_score}}
           </h3>

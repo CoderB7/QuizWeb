@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% from "bootstrap5/form.html" import render_form_row %}
+<html lang="en">
+{% include "header.html" %}
+<body>
+    <div class="container">
+        <div class="align-items-center justify-content-center">
+            <h1 class="display-5 fw-bold text-body-emphasis text-center">Quiz</h1>
+            <form name="t_f_form" id="1" action="{{url_for('quiz_functionality.t_f_form')}}" method="POST">
+                {{ render_form_row([quiz_form.quiz_title], col_map={'title': 'col-md-2'})}}
+            </form>
+            <div id="newFormsContainer"></div>
+            <button id="newFormButton" type="button" class="btn btn-primary button-add">+ Add Question</button>
+            {% if is_visible %}
+                <a href="{{url_for('quiz_functionality.t_f_preview_page', mode='preview', quiz_id='none')}}" role="button">
+                    <button id="previewButton" type="submit" class="btn btn-success">
+                        Preview
+                    </button>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    <script>
+        // Code Block 1: Adding New Forms
+        document.getElementById("newFormButton").addEventListener("click", function() {
+            // Use AJAX to trigger the /new_form route
+            fetch('/quiz/true_false/new_form_t_f')
+                .then(response => response.text())
+                .then(data => {
+                    // Append the new form into the "newFormsContainer"
+                    document.getElementById('newFormsContainer').appendChild(document.createRange().createContextualFragment(data));
+                });
+        });
+
+        // Code Block 2: Previewing Form Data (Using Event Delegation)
+        document.addEventListener("click", function(event) {
+            // Check if the clicked element is the "previewButton"
+            if (event.target && event.target.id === "previewButton") {
+                // Create an object to store form data for the preview
+                const formDataCollection = {};
+
+                // Get all the forms within the container
+                const forms = document.querySelectorAll('form');
+
+                forms.forEach(form => {
+                    // Collect data from each form and store it in the formDataCollection object
+                    const formData = new FormData(form);
+
+                    // Store the form data in the collection using the form's ID as a key
+                    formDataCollection[form.id] = {};
+                    formData.forEach((value, key) => {
+                        formDataCollection[form.id][key] = value;
+                    });
+                });
+
+                // Store the form data in local storage
+                // localStorage.setItem('formData', JSON.stringify(formDataCollection));
+
+                // Prepare an AJAX request to send the collected data to the server
+                fetch("/quiz/true_false", {
+                    method: "POST",
+                    body: JSON.stringify(formDataCollection),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.text())
+                .then(data => {
+                    // Handle the response from the server, e.g., display a confirmation
+                    console.log(data);
+                })
+                .catch(error => {
+                    // Handle any errors that occur during the request
+                    console.error(error);
+                });
+            }
+        });
+    </script>
+</body>
+{% include "footer.html" %}
+</html>

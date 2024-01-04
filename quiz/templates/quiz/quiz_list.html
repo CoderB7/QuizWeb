@@ -8,56 +8,100 @@
     >
 </header>
 <body class="for_body">
-    <ol class="for_ol" style="--length: {{number_of_quizs}}" role="list">
-        {% for n in range(0, number_of_quizs) %}
-            <li class="for_li" style="--i: {{n+1}}">
-                <div class="container d-flex flex-column">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <a
-                                href="{{url_for('quiz_functionality.quiz_preview_page', mode='preview_specific', quiz_id=user_quizs[n].id)}}"
-                                style="text-decoration:none"
-                                class="for_h3"
-                            >{{user_quizs[n].title}}</a>
-                        </div>
-                        <div class="col-md-6 d-flex align-items-baseline justify-content-end">
-                            <h4 class="for_h4">[{{user_quizs[n].created_time}}]</h4>
+    {% if own_work %}
+        <ol class="for_ol" style="--length: {{number_of_own_quizzes}}" role="list">
+            <h3 class="pb-4 mb-4 fst-italic border-bottom">
+                Own work
+            </h3>
+            {% for n in range(0, number_of_own_quizzes) %}
+                <li class="for_li" style="--i: {{n+1}}">
+                    <div class="container d-flex flex-column">
+                        <div class="row">
+                            {% if own_work[n].question_type == "Multiple Choice"%}
+                                <div class="col-md-6">
+                                    <a
+                                        href="{{url_for('quiz_functionality.m_ch_preview_page', mode='preview_specific', quiz_id=own_work[n].id)}}"
+                                        style="text-decoration:none"
+                                        class="for_h3"
+                                    >{{own_work[n].title}}</a>
+                                </div>
+                            {% elif own_work[n].question_type == "True/False"%}
+                                <div class="col-md-6">
+                                    <a
+                                        href="{{url_for('quiz_functionality.t_f_preview_page', mode='preview_specific', quiz_id=own_work[n].id)}}"
+                                        style="text-decoration:none"
+                                        class="for_h3"
+                                    >{{own_work[n].title}}</a>
+                                </div>
+                            {% endif %}
+                            <div class="col-md-6 d-flex align-items-baseline justify-content-end">
+                                <h4 class="for_h4">[{{own_work[n].created_time}}]</h4>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="container d-flex flex-column">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p class="for_p">{{user_quizs[n].question_type}}</p>
-                        </div>
-                        <div class="col-md-6 d-flex align-baseline justify-content-end">
-                            <a href="{{url_for('quiz_functionality.delete_quiz', quiz_id=user_quizs[n].id)}}" role="button">
-                                <button type="button" class="btn btn-danger">Delete</button>
-                            </a>
+                    <div class="container d-flex flex-column">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="for_p">{{own_work[n].question_type}}</p>
+                            </div>
+                            <div class="col-md-6 d-flex align-baseline justify-content-end">
+                                <a href="{{url_for('quiz_functionality.delete_quiz', quiz_id=own_work[n].id)}}" role="button">
+                                    <button type="button" class="btn btn-danger">Delete</button>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-<!--                <p class="for_p">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Adipiscing diam donec adipiscing tristique risus.</p>-->
-            </li>
-        {% endfor %}
-<!--        <li style="&#45;&#45;i: 2">-->
-<!--            <h3>Information gathering and analysis</h3>-->
-<!--            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Adipiscing diam donec adipiscing tristique risus.</p>-->
-<!--        </li>-->
-<!--        <li style="&#45;&#45;i: 3">-->
-<!--            <h3>Creating your claim</h3>-->
-<!--            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Adipiscing diam donec adipiscing tristique risus.</p>-->
-<!--        </li>-->
-<!--        <li style="&#45;&#45;i: 4">-->
-<!--            <h3>Approvals and submission</h3>-->
-<!--            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Adipiscing diam donec adipiscing tristique risus.</p>-->
-<!--        </li>-->
-<!--        <li style="&#45;&#45;i: 5">-->
-<!--            <h3>Receiving your benefit</h3>-->
-<!--            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Adipiscing diam donec adipiscing tristique risus.</p>-->
-<!--        </li>-->
-    </ol>
+                </li>
+            {% endfor %}
+        </ol>
+    {% endif %}
+    {% if from_library %}
+        <ol class="for_ol" style="--length: {{number_of_from_library}}" role="list">
+            <h3 class="pb-4 mb-4 fst-italic border-bottom">
+                From Library
+            </h3>
+            {% for n in range(0, number_of_from_library) %}
+                <li class="for_li" style="--i: {{n+1}}">
+                    <div class="container d-flex flex-column">
+                        <div class="row">
+                            {% if from_library[n].question_type == "Multiple Choice"%}
+                                <div class="col-md-6">
+                                    <a
+                                        href="{{url_for('quiz_functionality.from_library_preview_page', mode='preview_specific', quiz_id=from_library[n].id)}}"
+                                        style="text-decoration:none"
+                                        class="for_h3"
+                                    >{{from_library[n].title}}</a>
+                                </div>
+                            {% elif from_library[n].question_type == "True/False"%}
+                                <div class="col-md-6">
+                                    <a
+                                        href="{{url_for('quiz_functionality.from_library_preview_page', mode='preview_specific', quiz_id=from_library[n].id)}}"
+                                        style="text-decoration:none"
+                                        class="for_h3"
+                                    >{{from_library[n].title}}</a>
+                                </div>
+                            {% endif %}
+                            <div class="col-md-6 d-flex align-items-baseline justify-content-end">
+                                <h4 class="for_h4">[{{from_library[n].created_time}}]</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container d-flex flex-column">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="for_p">{{from_library[n].question_type}}</p>
+                            </div>
+                            <div class="col-md-6 d-flex align-baseline justify-content-end">
+                                <a href="{{url_for('quiz_functionality.delete_quiz', quiz_id=from_library[n].id)}}" role="button">
+                                    <button type="button" class="btn btn-danger">Delete</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ol>
+    {% endif %}
 </body>
 {% include "footer.html" %}
 </html>

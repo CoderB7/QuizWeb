@@ -13,9 +13,8 @@
     >
 </head>
 <body>
-
-    {% for key in quiz_data%}
-    <div class="container-sm">
+    {% for key in quiz_data %}
+      <div class="container-sm">
         <div class="row small_width">
           <div class="col">
             <div class="card mb-4 rounded-3 shadow-sm border-primary">
@@ -23,22 +22,29 @@
                 <h2 class="my-0 fw-normal">{{key}} {{quiz_data[key]['question']}}</h2>
               </div>
               <div class="card-body radio-container">
-                  {% for i in range(0, n_o_answers) %}
-                      <div class="radio-box" onclick="markAsClicked(this,'{{key}}','{{ i+1 }}')">
-                          <div class="number-box">
-                             {{i+1}})
-                          </div>
-                          <input type="radio" id="answer-{{key}}-{{i+1}}" name="answer-{{key}}" data-question="{{key}}" data-answer="{{ quiz_data[key][ans_if_structure + i | string() ] }}" required>
-                          <label for="answer-{{key}}-{{i+1}}">
-                              {{quiz_data[key][ans_if_structure + i | string() ]}}
-                          </label>
-                      </div>
-                  {% endfor %}
+                    <div class="radio-box" onclick="markAsClicked(this,'{{key}}','1')">
+                        <div class="number-box">
+                           1)
+                        </div>
+                        <input type="radio" id="answer-{{key}}-1" name="answer-{{key}}" data-question="{{key}}" data-answer="True" required>
+                        <label for="answer-{{key}}-1">
+                            True
+                        </label>
+                    </div>
+                    <div class="radio-box" onclick="markAsClicked(this,'{{key}}','2')">
+                        <div class="number-box">
+                           2)
+                        </div>
+                        <input type="radio" id="answer-{{key}}-2" name="answer-{{key}}" data-question="{{key}}" data-answer="False" required>
+                        <label for="answer-{{key}}-2">
+                            False
+                        </label>
+                    </div>
               </div>
             </div>
           </div>
         </div>
-    </div>
+      </div>
     {% endfor %}
     <div class="container">
         <button id="submit_button" class="btn btn-primary submit_button">Submit</button>

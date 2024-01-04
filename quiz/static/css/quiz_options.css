@@ -1,0 +1,21 @@
+
+.for_options {
+
+    margin: 50px 100px 0 350px;
+    width: 600px;
+    align-items: center;
+    border-radius: 0.25em;
+}
+
+.clickable {
+    cursor: pointer;
+    background-color: white;
+    display:block;
+    text-align:center;
+}
+
+.clickable:hover {
+  background-color: #39A7FF;
+  text-decoration:none;
+  color:#FFFFFF;
+}

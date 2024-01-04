@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+{% from "bootstrap5/form.html" import render_form_row %}
+<html lang="en">
+{% include "header.html" %}
+<body>
+    <div class="container">
+        <div class="align-items-center justify-content-center">
+            <h1 class="display-5 fw-bold text-body-emphasis text-center">Quiz</h1>
+            <form name="quiz_form" id="1" action="{{url_for('quiz_functionality.add_from_library')}}" method="POST">
+                {{ render_form_row([trivia_form.question_amount], col_map={'title': 'col-md-2'})}}
+                {{ render_form_row([trivia_form.category], col_map={'title': 'col-md-2'})}}
+                {{ render_form_row([trivia_form.difficulty], col_map={'title': 'col-md-2'})}}
+                {{ render_form_row([trivia_form.type], col_map={'title': 'col-md-2'})}}
+                {{ render_form_row([trivia_form.point], col_map={'title': 'col-md-2'})}}
+            </form>
+            <button id="create" type="button" class="btn btn-primary button-add">Create</button>
+        </div>
+    </div>
+    <script>
+        // Code Block 1: Adding New Forms
+        document.getElementById("create").addEventListener("click", function() {
+            // Create an object to store form data for the preview
+            const formDataCollection = {};
+
+            // Get all the forms within the container
+            const forms = document.querySelectorAll('form');
+
+            forms.forEach(form => {
+                // Collect data from each form and store it in the formDataCollection object
+                const formData = new FormData(form);
+
+                // Store the form data in the collection using the form's ID as a key
+                formDataCollection[form.id] = {};
+                formData.forEach((value, key) => {
+                    formDataCollection[form.id][key] = value;
+                });
+            });
+
+            // Store the form data in local storage
+            // localStorage.setItem('formData', JSON.stringify(formDataCollection));
+
+
+            // Use AJAX to trigger the /new_form route
+            fetch('/quiz/add_from_library', {
+                method: "POST",
+                body: JSON.stringify(formDataCollection),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = '/quiz/add_from_library/preview/none' + '?quiz_data=' + data.quiz_data +
+                        '&mode_to_preview=' + data.mode_to_preview + '&quiz_type=' + data.quiz_type +
+                         '&question_amount=' + data.question_amount;
+                } else {
+                    console.error("Quiz creation failed")
+                }
+            });
+        });
+           // This JavaScript code runs when the page is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if the page has a message indicating a successful submission
+            var successMessage = document.querySelector('.success-message');
+            if (successMessage) {
+                // Redirect to the quiz_over.html page after a delay
+                setTimeout(function() {
+                    window.location.href = 'from_library_preview.html';  // Change this to the actual URL
+                }, 1000);  // Redirect after 3 seconds (adjust as needed)
+            }
+        });
+    </script>
+</body>
+{% include "footer.html" %}
+</html>

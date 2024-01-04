@@ -33,14 +33,15 @@ def student_page():
     result_q = db.session.execute(db.select(Quiz).order_by(Quiz.id))
     quizs = result_q.fetchall()
     student_id = current_user.id
-
+    print(student_id)
     # Top Quizzes list
     top_quizs = [item for item in quizs if item[0].number_of_views > 2]
-
+    print(top_quizs)
     # To get quizzes that are NOT SOLVED
     result_answers = db.session.execute(
         db.select(StudentAnswers).filter(StudentAnswers.student_id == student_id)
     ).all()
+    print(result_answers)
     if result_answers:
         # Algorithm for sorting if current_user solved quiz that exists in Top Quizzes
         top_solved_quizs = []
@@ -53,29 +54,28 @@ def student_page():
             else:
                 top_not_solved_quizs.append(q_uiz)
         #######
-
         # Algorithm for displaying quizzes that are NOT solved -> for Preview page
         quizs_not_solved = []
         for q_uiz in quizs:
             if q_uiz[0].id not in solved_quiz_id_s:
                 quizs_not_solved.append(q_uiz)
-        print(quizs_not_solved)
-        return render_template(
-            "user/student.html",
-            current_user=current_user,
-            quizs=quizs_not_solved,
-            top_solved_quizs=top_solved_quizs,
-            top_not_solved_quizs=top_not_solved_quizs,
-        )
-        ######
-
     else:
-        return render_template(
-            "user/student.html",
-            current_user=current_user,
-            quizs=quizs,
-            top_quizs=top_quizs,
-        )
+        quizs_not_solved = []
+        top_not_solved_quizs = []
+        top_solved_quizs = []
+        for q_uiz in top_quizs:
+            top_not_solved_quizs.append(q_uiz)
+        for q_uiz in quizs:
+            quizs_not_solved.append(q_uiz)
+
+    print(quizs_not_solved)
+    return render_template(
+        "user/student.html",
+        current_user=current_user,
+        quizs=quizs_not_solved,
+        top_solved_quizs=top_solved_quizs,
+        top_not_solved_quizs=top_not_solved_quizs,
+    )
 
 
 @users.route("/student/student_profile")

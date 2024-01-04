@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include "header.html" %}
+<header>
+    <link
+      href="{{ url_for('.static', filename='css/quiz_options.css')}}"
+      rel="stylesheet"
+    >
+</header>
+<body>
+    <div class="container">
+      <h1 class="display-5 fw-bold text-body-emphasis text-center">Quiz</h1>
+        <div class="for_options">
+            <div class="alert alert-primary clickable" role="alert">
+              <a href="{{url_for('quiz_functionality.m_ch_form')}}" style="text-decoration:none" class="alert-link">Multiple Choice</a>
+            </div>
+            <div class="alert alert-primary clickable" role="alert">
+              <a href="{{url_for('quiz_functionality.t_f_form')}}" style="text-decoration:none" class="alert-link">True/False</a>
+            </div>
+            <div class="alert alert-primary clickable" role="alert">
+              <a href="{{url_for('quiz_functionality.add_from_library')}}" style="text-decoration:none" class="alert-link">Add from library</a>
+            </div>
+        </div>
+<!--            <div class="card mb-4 rounded-3 shadow-sm border-primary">-->
+<!--&lt;!&ndash;              <div class="card-header py-3 text-bg-primary border-primary">&ndash;&gt;-->
+<!--&lt;!&ndash;                <h4 class="my-0 fw-normal">Enterprise</h4>&ndash;&gt;-->
+<!--&lt;!&ndash;              </div>&ndash;&gt;-->
+<!--              <div class="card-body py-3 text-bg-primary">-->
+<!--                <h1 class="card-title pricing-card-title">Multiple Choice</h1>-->
+<!--&lt;!&ndash;                <ul class="list-unstyled mt-3 mb-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <li>30 users included</li>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <li>15 GB of storage</li>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <li>Phone and email support</li>&ndash;&gt;-->
+<!--&lt;!&ndash;                  <li>Help center access</li>&ndash;&gt;-->
+<!--&lt;!&ndash;                </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                <button type="button" class="w-100 btn btn-lg btn-primary">Contact us</button>&ndash;&gt;-->
+<!--              </div>-->
+<!--            </div>-->
+
+    </div>
+</body>
+</html>
