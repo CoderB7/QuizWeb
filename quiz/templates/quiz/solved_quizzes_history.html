@@ -37,7 +37,6 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <a
-                                                href="{{url_for('quiz_functionality.from_library_preview_page', mode='preview_specific', quiz_id=quiz.solved_quiz_id)}}"
                                                 style="text-decoration:none"
                                                 class="for_history_h3"
                                             >{{quiz.subject_title}}</a>
@@ -73,13 +72,11 @@
                                         <div class="col-md-6">
                                             {% if quiz.question_type == "Multiple Choice" %}
                                                 <a
-                                                    href="{{url_for('quiz_functionality.m_ch_preview_page', mode='preview_specific', quiz_id=quiz.solved_quiz_id)}}"
                                                     style="text-decoration:none"
                                                     class="for_history_h3"
                                                 >{{quiz.subject_title}}</a>
                                             {% elif quiz.question_type == "True/False" %}
                                                 <a
-                                                    href="{{url_for('quiz_functionality.t_f_preview_page', mode='preview_specific', quiz_id=quiz.solved_quiz_id)}}"
                                                     style="text-decoration:none"
                                                     class="for_history_h3"
                                                 >{{quiz.subject_title}}</a>

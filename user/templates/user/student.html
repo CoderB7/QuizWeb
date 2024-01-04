@@ -119,8 +119,13 @@
                                   </h1>
                                   <ul class="list-unstyled mt-3 mb-4">
                                     <li>by {{quiz[0].teacher.first_name}} {{quiz[0].teacher.second_name}}</li>
-                                    <li>{{quiz[0].question_type}}</li>
-                                    <li>{{quiz[0].question_amount}} questions</li>
+                                    {% if quiz[0].question_type == "multiple" %}
+                                      <li>Multiple Choice</li>
+                                    {% elif quiz[0].question_type == "boolean" %}
+                                      <li>True/False</li>
+                                    {% else %}
+                                      <li>{{quiz[0].question_amount}} questions</li>
+                                    {% endif %}
                                   </ul>
                                   <a href="{{url_for('quiz_functionality.solve_quiz', q_id=quiz[0].id)}}" role="button">
                                     <button type="button" class="w-100 btn btn-lg btn-primary">Attempt Quiz</button>

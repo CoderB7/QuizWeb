@@ -208,7 +208,7 @@ def add_from_library():
             )
 
 
-@quiz_functionality.route("/add_from_library/<mode>/<quiz_id>")
+@quiz_functionality.route("/add_from_library/<mode>/<quiz_id>/")
 def from_library_preview_page(mode, quiz_id):
     global quiz_data, quiz_type
     if current_user.is_authenticated:
@@ -243,6 +243,7 @@ def from_library_preview_page(mode, quiz_id):
         else:
             answer_data = []
             for question in quiz_data[1]:
+                question["category"] = html.unescape(question["category"])
                 question["correct_answer"] = html.unescape(question["correct_answer"])
                 question["question"] = html.unescape(question["question"])
                 question["incorrect_answers"] = html.unescape(question["incorrect_answers"])
