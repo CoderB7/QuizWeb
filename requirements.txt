@@ -9,3 +9,4 @@ Flask_WTF==1.1.1
 Flask_Login==0.6.2
 Bootstrap_Flask==2.2.0
 python-dotenv~=0.21.1
+requests[security] == 2.9.1
