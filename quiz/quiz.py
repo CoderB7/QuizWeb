@@ -69,9 +69,9 @@ def t_f_form():
     is_visible = True
     if current_user.is_authenticated:
         if request.method == "POST":
-            print("GO_TRUE_FALSE")
+            # print("GO_TRUE_FALSE")
             quiz_data = request.get_json()
-            print(quiz_data)
+            # print(quiz_data)
             is_visible = True
             return render_template(
                 "quiz/t_f_form.html",
@@ -104,9 +104,9 @@ def m_ch_form():
     form = MultipleChoiceForm()
     if current_user.is_authenticated:
         if request.method == "POST":
-            print("GO")
+            # print("GO")
             quiz_data = request.get_json()
-            print(quiz_data)
+            # print(quiz_data)
             return None
         if request.method == "GET":
             question_order_number = 0
@@ -151,12 +151,12 @@ def new_form_m_ch():
     if current_user.is_authenticated:
         if request.method == "POST":
             data = request.get_json()
-            print(data)
+            # print(data)
             if flag_new_form_m_ch:
                 number_of_answers_each_question = int(data['1']["num_answer_field"])
                 flag_new_form_m_ch = False
             question_order_number = question_order_number + 1
-            print(number_of_answers_each_question)
+            # print(number_of_answers_each_question)
             # dynamic_answers = q_form.retrieve_answer_fields(number_of_answers_each_question)
             # Append new answer fields to the dynamic_answers field
             for _ in range(number_of_answers_each_question):
@@ -223,13 +223,13 @@ def from_library_preview_page(mode, quiz_id):
                 incorrect_answers = question["incorrect_answers"]
                 incorrect_answers.append(question_answer)
                 answer_data.append(incorrect_answers)
-            print(answer_data)
+            # print(answer_data)
             point = int(quiz_to_preview.total_score / quiz_to_preview.question_amount)
             if quiz_to_preview.question_type == "multiple":
                 quiz_type_temp = "Multiple Choice"
             else:
                 quiz_type_temp = "True/False"
-            print(quiz_type_temp)
+            # print(quiz_type_temp)
             return render_template(
                 "quiz/from_library_preview.html",
                 mode_to_preview="preview_specific",
@@ -246,7 +246,8 @@ def from_library_preview_page(mode, quiz_id):
                 question["category"] = html.unescape(question["category"])
                 question["correct_answer"] = html.unescape(question["correct_answer"])
                 question["question"] = html.unescape(question["question"])
-                question["incorrect_answers"] = html.unescape(question["incorrect_answers"])
+                for i in range(0, len(question["incorrect_answers"])):
+                    question["incorrect_answers"][i] = html.unescape(question["incorrect_answers"][i])
                 question_answer = question["correct_answer"]
                 incorrect_answers = question["incorrect_answers"]
                 result_2 = shuffle_answers(question_answer, incorrect_answers, quiz_type)
@@ -320,11 +321,11 @@ def t_f_preview_page(mode, quiz_id):
             )
         else:
             try:
-                print(quiz_data)
-                print(mode)
+                # print(quiz_data)
+                # print(mode)
                 form_data = quiz_data["1"]
                 question_data = dict(list(quiz_data.items())[1:])
-                print(question_data)
+                # print(question_data)
                 if mode == "upload":
                     # Getting Exact time <Created>
                     time = dt.datetime.now().strftime("%b %d, %Y")
@@ -374,7 +375,7 @@ def t_f_preview_page(mode, quiz_id):
 def m_ch_preview_page(mode, quiz_id):
     global quiz_data, question_order_number, number_of_answers_each_question, quiz_type
     if current_user.is_authenticated:
-        print("why")
+        # print("why")
         if mode == "preview_specific":
             result = db.session.execute(db.select(Quiz).where(Quiz.id == quiz_id))
             quiz_to_preview = result.scalar()
@@ -391,17 +392,17 @@ def m_ch_preview_page(mode, quiz_id):
             )
         else:
             try:
-                print(quiz_data)
-                # here
-                print(mode)
+                # print(quiz_data)
+                # # here
+                # print(mode)
                 form_data = quiz_data["1"]
                 question_data = dict(list(quiz_data.items())[1:])
-                print(question_data)
+                # print(question_data)
                 if mode == "upload":
-                    print("entered")
+                    # print("entered")
                     # Getting Exact time <Created>
                     time = dt.datetime.now().strftime("%b %d, %Y")
-                    print(question_order_number)
+                    # print(question_order_number)
                     total_points = total_score_(question_data)
                     new_quiz = Quiz(
                         title=form_data["quiz_title"],
@@ -428,7 +429,7 @@ def m_ch_preview_page(mode, quiz_id):
 
                     return redirect(url_for("users.teacher_page"))
                 elif mode == "preview":
-                    print("hi")
+                    # print("hi")
                     ans_if_structure = "dynamic_answers-"
                     return render_template(
                         "quiz/m_ch_preview.html",
@@ -450,7 +451,7 @@ def m_ch_preview_page(mode, quiz_id):
 def quiz_list():
     result = db.session.execute(db.select(User).where(User.email == current_user.email))
     user = result.scalar()
-    print(user.quizs)
+    # print(user.quizs)
     own_work = []
     from_library = []
     for quiz in user.quizs:
@@ -661,7 +662,7 @@ def quiz_results():
             for q_answer in all_quizzes_result
             if q_answer.solved_quiz_id in teacher_quizzes_id
         ]
-        print(quiz_result_students)
+        # print(quiz_result_students)
         return render_template(
             "quiz/quiz_results_reviews.html",
             current_user=current_user,
@@ -687,13 +688,13 @@ def student_answer(student_id, quiz_id):
         )
         student_answer_data = result_a.scalar()
         student_answers = student_answer_data.student_answers_json
-        print(student_answers)
+        # print(student_answers)
         # -> Getting quiz data that current_student solved
         result_q = db.session.execute(
             db.select(Quiz).where(Quiz.id == student_answer_data.solved_quiz_id)
         )
         q_data = result_q.scalar()
-        print(q_data.title)
+        # print(q_data.title)
         questions = q_data.question_data
         question_amount = len(questions)
         if q_data.question_type == "multiple" or q_data.question_type == "boolean":
@@ -702,7 +703,7 @@ def student_answer(student_id, quiz_id):
             key = "Q"
         else:
             from_library = False
-        print(questions)
+        # print(questions)
         return render_template(
             "quiz/student_answers_page.html",
             student_answer_data=student_answer_data,
@@ -734,7 +735,7 @@ def solved_quizzes_history():
             item for item in results_desc if item.student_id == current_user.id
         ]
         solved_quizzes_time = [item.solved_time for item in solved_quizzes_answers]
-        print(solved_quizzes_time)
+        # print(solved_quizzes_time)
         if not solved_quizzes_time:
             no_data = True
             star_times = None

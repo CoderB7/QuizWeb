@@ -21,11 +21,11 @@ def trivia_request(q_amount, category, difficulty, q_type):
         "difficulty": difficulty,
         "type": q_type,
     }
-    print(parameters)
+    # print(parameters)
     response = requests.get("https://opentdb.com/api.php", params=parameters)
     response.raise_for_status()
     data = response.json()
-    print(data)
+    # print(data)
     question_data = data["results"]
     return question_data
 
@@ -35,14 +35,19 @@ def score_calculator(student_answers, question_data, from_library, point):
     total_score = 0
 
     if from_library:
-        print(student_answers)
+        # print(student_answers)
         question_amount = len(question_data)
+        # print(question_amount)
         for n in range(0, question_amount):
-            key = "Q"
             key_2 = n + 1
-            if question_data[n]["correct_answer"] == student_answers[key+str(key_2)][0]["answer"]:
+            key = "Q" + str(key_2)
+            # print(key)
+            # print(question_data[n]["correct_answer"])
+            # print(student_answers[key][0]["answer"])
+            if question_data[n]["correct_answer"] == student_answers[key][0]["answer"]:
                 score += point
             total_score += point
+            key_2 = int(key_2)
     else:
         for key in question_data:
             if question_data[key]["correct_answer"] == student_answers[key][0]["answer"]:

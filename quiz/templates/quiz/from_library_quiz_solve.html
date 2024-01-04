@@ -28,8 +28,8 @@
                               <div class="number-box">
                                  {{i+1}})
                               </div>
-                              <input type="radio" id="answer-{{n+1}}-{{i+1}}" name="answer-{{n+1}}" data-question="{{n+1}}" data-answer="{{ shuffled_answers[n][i] }}" required>
-                              <label for="answer-{{n+1}}-{{i+1}}">
+                              <input type="radio" id="answer-{{n}}-{{i+1}}" name="answer-{{n}}" data-question="{{n}}" data-answer="{{ shuffled_answers[n][i] }}" required>
+                              <label for="answer-{{n}}-{{i+1}}">
                                   {{shuffled_answers[n][i]}}
                               </label>
                           </div>
@@ -85,7 +85,7 @@
 
             {% for n in range(0, question_amount) %}
                 selectedAnswers['Q{{n+1}}'] = [];
-                var checkedInput = document.querySelector('input[name="answer-{{n+1}}"]:checked');
+                var checkedInput = document.querySelector('input[name="answer-{{n}}"]:checked');
 
                 if (checkedInput) {
                     selectedAnswers['Q{{n+1}}'].push({
@@ -133,7 +133,7 @@
                 // Redirect to the quiz_over.html page after a delay
                 setTimeout(function() {
                     window.location.href = 'quiz_over.html';  // Change this to the actual URL
-                }, 1000);  // Redirect after 3 seconds (adjust as needed)
+                }, 500);  // Redirect after 3 seconds (adjust as needed)
             }
         });
     </script>
