@@ -38,7 +38,9 @@ def score_calculator(student_answers, question_data, from_library, point):
         print(student_answers)
         question_amount = len(question_data)
         for n in range(0, question_amount):
-            if question_data[n]["correct_answer"] == student_answers[f"Q{n+1}"][0]["answer"]:
+            key = "Q"
+            key_2 = n + 1
+            if question_data[n]["correct_answer"] == student_answers[key+str(key_2)][0]["answer"]:
                 score += point
             total_score += point
     else:
