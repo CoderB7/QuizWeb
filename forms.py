@@ -27,7 +27,7 @@ class RegisterForm(FlaskForm):
     education = SelectField(
         "Education:  ",
         choices=["Choose...", "Teacher", "Student"],
-        validators=[DataRequired(), InputRequired()],
+        validators=[DataRequired()],
     )
     first_name = StringField(
         "First name",
@@ -93,8 +93,7 @@ class MultipleChoiceForm(FlaskForm):
 class OpenTriviaForm(FlaskForm):
     question_amount = IntegerField(
         "Number of Questions:",
-        validators=[InputRequired(), DataRequired()],
-        render_kw={"placeholder": 10},
+        validators=[InputRequired()],
     )
     category = SelectField(
         "Select Category:",
@@ -122,8 +121,7 @@ class OpenTriviaForm(FlaskForm):
     )
     point = IntegerField(
         label="Set Score",
-        validators=[InputRequired(), DataRequired()],
-        render_kw={"placeholder": 1},
+        validators=[InputRequired()],
     )
 
 
